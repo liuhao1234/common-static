@@ -1,0 +1,464 @@
+@import '../lib/normalize/normalize.css'
+@import '../iconfont/iconfont.css'
+@import './common.styl'
+@import './layui-reset.styl'
+@import './ztree-reset.styl'
+// 全局样式
+body{
+    background-color $base-bg-color
+    color $font-color
+    margin 0
+}
+ul,li{
+    margin 0
+    padding 0
+    list-style none
+}
+dl,dd,p{
+    margin 0
+    padding 0
+}
+input{
+    border 1px solid #f2f2f2
+    height 20px
+}
+b,i{
+    font-weight normal
+    font-style normal
+    text-decoration none
+}
+hr{
+    height 1px
+}
+
+.body-padding{
+    padding:10px;
+}
+
+.text-center{
+    text-align center
+}
+.form-button{
+    width 190px
+    background-color $theme-color
+}
+
+.color-theme{
+    color $theme-color
+}
+
+// 左侧菜单栏
+.nav-push{
+    .left-section{
+        width 60px
+        transition all .3s ease
+        .layui-nav{
+            margin-top 50px
+            width 60px
+            span{
+                display none
+            }
+        }
+        .layui-nav-tree{
+            .layui-nav-item{
+                position relative
+                a{
+                    text-overflow clip
+                }
+            }
+        }
+        .nav-list{
+            width 60px
+            .layui-side-scroll{
+                width 80px
+            }
+        }
+        .top-logo{
+            img{
+                height 70%
+                &.logo-icon{
+                    display none
+                }
+                &.logo-icon-small{
+                    display block
+                }
+            }
+        }
+        .nav-search{
+            display none
+        }
+        .nav-title{
+            display none
+        }
+    }
+    .right-section{
+        width calc(100% - 60px)
+        transition all .3s ease
+        .icon-pull-left{
+            transform rotate(180deg)
+        }
+    }
+}
+
+.left-section{
+    width 220px
+    float left
+    height 100%
+    transition all .3s ease
+    background $nav-gray
+    .top-logo{
+        height 50px
+        background $theme-color
+        display flex
+        justify-content center
+        align-items center
+        position relative
+        z-index 9999
+        img{
+            height 70%
+            &.logo-icon-small{
+                display none
+            }
+        }
+    }
+    .nav-search{
+        height 30px
+        padding 5px 0
+        position relative
+        z-index 9999
+        background  $nav-gray
+        span {
+            display block
+            border-radius 20px
+            width 180px
+            box-sizing border-box
+            margin 0 auto
+            height 30px
+            padding 5px 10px
+            background #384250
+            input{
+                box-sizing border-box
+                background none
+                border none
+                width 140px
+                color #9ca6bf
+                vertical-align middle
+            }
+            input::-webkit-input-placeholder {
+                color #9ca6bf
+            }
+            i{
+                font-size 16px
+                color #9ca6bf
+                vertical-align middle
+            }
+        }
+    }
+    .nav-title{
+        height 40px
+        line-height 40px
+        padding 0 10px
+        font-size 14px
+        font-weight bold
+        background #1a1f25
+        color #48627d
+        position relative
+        z-index 9999
+    }
+    .nav-list{
+        .nav-icon{
+            font-size 18px
+            vertical-align middle
+            margin-right 5px
+        }
+    }
+}
+
+.right-section{
+    float right
+    width calc(100% - 220px)
+    transition all .3s ease
+    height 100%
+    .top-info{
+        height 50px
+        line-height 50px
+        box-sizing border-box
+        border-bottom 1px solid $border-color
+        background #fff
+        position relative
+        z-index 9999
+        i{
+            float left
+            font-size 20px
+            color #222932
+            margin-left 10px
+            cursor pointer
+        }
+        .info-list{
+            float right
+            span{
+                cursor pointer
+                position relative
+                display inline-block
+                line-height 50px
+                i{
+                    float none
+                    vertivcal-align middle
+                    font-size 16px
+                    color #7e8388
+                    margin-left 0
+                    margin-right 5px
+                    &.user-arrow{
+                        font-size 12px
+                        margin-left 5px
+                    }
+                }
+                &:last-child{
+                    i{
+                        font-size 14px
+                    }
+                }
+                dl{
+                    display none
+                    position absolute
+                    top 50px
+                    left 0
+                    width 100px
+                    text-align center
+                    background #fff
+                    border-radius 4px
+                    box-shadow 0 5px 15px rgba(0,0,0,.2)
+                    dd{
+                        border-top 1px solid $border-color
+                        line-height 40px
+                        &:first-child{
+                            border-top none
+                        }
+                        &:hover{
+                            background $border-color
+                        }
+                    }
+                }
+                &:hover{
+                    dl{
+                        display block
+                    }
+                }
+                margin 0 10px
+            }
+        }
+    }
+    .nav-tab{
+        height 40px
+        background #fff
+        position relative
+        .tab-control{
+            width 40px
+            height 100%
+            text-align center
+            line-height 40px
+            position absolute
+            top 0
+            background $common-bg-color
+            border-right 1px solid $border-color
+            cursor pointer
+            &:hover{
+                background $border-color
+            }
+        }
+        .tab-prev{
+            left 0
+            z-index 999
+        }
+        .tab-next{
+            right 40px
+            border-left 1px solid $border-color
+            transform rotate(180deg)
+            z-index 999
+        }
+        .tab-operate{
+            right 0
+            border-left 1px solid $border-color
+            z-index 999
+            dl{
+                display none
+                position absolute
+                top 40px
+                right 0
+                width 120px
+                font-size 14px
+                text-align center
+                background #fff
+                border-radius 4px
+                box-shadow 0 5px 15px rgba(0,0,0,.2)
+                dd{
+                    border-top 1px solid $border-color
+                    line-height 40px
+                    &:first-child{
+                        border-top none
+                    }
+                    &:hover{
+                        background $border-color
+                    }
+                }
+            }
+            &:hover{
+                dl{
+                    display block
+                }
+            }
+        }
+        .nav-tab-list{
+            margin-left 0px
+            width calc(100% - 40px)
+            ul{
+                height 40px
+                white-space nowrap
+                position relative
+                left 0
+                li{
+                    cursor pointer
+                    display inline-block
+                    vertical-align top
+                    font-size 0
+                    line-height 40px
+                    border-left 1px solid $border-color
+                    padding 0 10px
+                    position relative
+                    span{
+                        font-size 14px
+                        vertical-align middle
+                    }
+                    small{
+                        font-size 20px
+                    }
+                    i{
+                        width 18px
+                        height 18px
+                        line-height 18px
+                        text-align center
+                        border-radius 50%
+                        display inline-block
+                        font-size 14px
+                        color gray(.5)
+                        margin-left 10px
+                        vertical-align middle
+                        &:hover{
+                            background $theme-color
+                            color #fff
+                        }
+                    }
+                    &:after{
+                        content " "
+                        position absolute
+                        top 0
+                        width 0
+                        height 2px
+                        left 50%
+                        background $theme-color
+                        z-index 99
+                        transition all .3s ease
+                    }
+                    &:hover{
+                        &:after{
+                            width 100%
+                            left 0
+                            transition all .3s ease
+                        }
+                    }
+                    &:last-child{
+                        border-right 1px solid $border-color
+                    }
+                    &.home{
+                        width 40px
+                        height 100%
+                        padding 0
+                        text-align center
+                        line-height 40px
+                        margin-right -4px
+                        i{
+                            font-size 18px
+                            &:hover{
+                                background none
+                                color gray(.5)
+                            }
+                        }
+                    }
+                    &.active{
+                        background $base-bg-color
+                        position relative
+                        &:after{
+                            content ""
+                            position absolute
+                            top 0
+                            left 0
+                            width 100%
+                            height 2px
+                            background-color $theme-color
+                        }
+                    }
+                }
+            }
+        }
+    }
+    .iframe-section{
+        width 100%
+        height calc(100% - 90px)
+        position relative
+        iframe{
+            position absolute
+            top 0
+            left 0
+            width 100%
+            height 100%
+        }
+    }
+}
+// 清单发布样式
+.staff-list-wrap{
+    border: 1px solid #e6e6e6;
+    height: 465px;
+    margin-top: 5px;
+    .staff-list-inner{
+        padding: 10px
+        ul.staff-list-tree{
+
+        }
+    }
+}
+
+// 弹窗样式
+.pUpWin-body{
+    padding: 10px
+    margin: 0 10px
+    height: 100%
+    box-sizing: border-box
+    &>.left{
+        float: left
+        box-sizing: border-box
+        width: 50%
+        height: 100%
+        padding-right: 5px
+    }
+    &>.right{
+        float:right
+        box-sizing: border-box
+        width: 50%
+        height: 100%
+        padding-left: 5px
+        .staff-list{
+            margin-top: 10px
+            box-sizing: border-box
+            height: calc(100% - 70px)
+            border: 1px solid #e6e6e6
+        }
+    }
+
+}
+
+// 块样式
+.block-item{
+    border-radius(4px 30px 4px 30px)
+    background: $base-bg-color
+    min-height: 100px;
+}

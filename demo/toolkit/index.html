@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>降收工具包</title>
+    <link rel="stylesheet" href="../../lib/layui/css/layui.css">
+    <link rel="stylesheet" href="../../css/style.css">
+    <style>
+        .module-group-check{
+            height: 200px;
+            padding: 0 10px;
+            overflow: auto;
+        }
+        .layui-form-item{
+            margin-bottom: 0;
+        }
+        .module-title{
+            margin: 0 -10px;
+        }
+        .module-title h4{
+            height: 36px;
+            line-height: 36px;
+            padding: 0 10px;
+            background-image: url(../../images/icon-title-bg01.png);
+            background-repeat: repeat-y;
+            background-position: top left;
+            background-size: cover;
+            color: #fff;
+        }
+        .module-title h4 i{
+            display: inline-block;
+            vertical-align: middle;
+            width: 18px;
+            height: 18px;
+            text-align: center;
+            line-height: 18px;
+            color: #333;
+            font-size: 12px;
+            margin-right: 5px;
+            background: url(../../images/icon-title-num-bg.png) no-repeat center center;
+            background-size: 100%;
+        }
+        .module-title h4.icon01{
+            background-image: url(../../images/icon-title-bg01.png);
+        }
+        .module-title h4.icon02{
+            background-image: url(../../images/icon-title-bg02.png);
+        }
+        .module-title h4.icon03{
+            background-image: url(../../images/icon-title-bg03.png);
+        }
+        .module-title h4.icon04{
+            background-image: url(../../images/icon-title-bg04.png);
+        }
+        .module-title h4.icon05{
+            background-image: url(../../images/icon-title-bg05.png);
+        }
+        .module-title h4 span{
+            vertical-align: middle;
+        }
+        .module-title h4 small{
+            float: right;
+            font-size: 20px;
+            opacity: 0;
+            transition: all ease .3s;
+            cursor: pointer;
+        }
+        .module-title h4:hover small{
+            opacity: 1;
+            transition: all ease .3s;
+        }
+        .form-wrap{
+            height: calc(100% - 50px);
+            overflow: auto;
+        }
+        .check-more{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: none;
+        }
+        .check-more i{
+            display: block;
+            width: 50px;
+            height: 50px;
+            font-size: 50px;
+            line-height: 50px;
+            color: #3383ff;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body class="body-padding">
+    <div class="lay-fluid layui-col-space10">
+        <div class="layui-row">
+            <div class="layui-col-xs12">
+                <div class="layui-card">
+                    <div class="layui-card-header">
+                        <i>条件选择</i>
+                    </div>
+                    <div class="layui-card-body">
+                        <div class="layui-form" lay-filter="conditionCheck">
+                            <div class="layui-form-item">
+                                <div class="layui-inline">
+                                    <label class="layui-form-label">节点来源</label>
+                                    <div class="layui-input-inline">
+                                        <select name="ischeck" id="listStatus">
+                                            <option value="">-请选择-</option>
+                                            <option value="bbb">降收分析模组</option>
+                                            <option value="ccc">收入降收模组</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="layui-inline">
+                                    <label class="layui-form-label">用户来源</label>
+                                    <div class="layui-input-block">
+                                        <input type="radio" name="user" value="0" title="已传用户" lay-filter="user">
+                                        <input type="radio" name="user" value="1" title="已存用户" lay-filter="user">
+                                        <input type="radio" name="user" value="2" title="新增用户" lay-filter="user">
+                                        <input type="radio" name="user" value="3" title="全量用户" lay-filter="user">
+                                    </div>
+                                </div>
+                                <div class="layui-inline">
+                                    <label class="layui-form-label">当前账期</label>
+                                    <div class="layui-input-inline">
+                                        <input type="text" name="curDate" id="curDate" placeholder="当前账期" class="layui-input layui-input-date">
+                                    </div>
+                                </div>
+                                <div class="layui-inline">
+                                    <label class="layui-form-label">对比账期</label>
+                                    <div class="layui-input-inline">
+                                        <input type="text" name="compareDate" id="compareDate" placeholder="对比账期" class="layui-input layui-input-date">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="layui-row">
+            <div class="layui-col-xs12">
+                <div class="layui-card">
+                    <div class="layui-card-header">
+                        <i>模型组选择</i>
+                    </div>
+                    <div class="layui-card-body layui-form" lay-filter="moduleCheck">
+                        <div class="layui-row layui-col-space10" id="moduleGroupList">
+                            <div class="layui-col-lg2 layui-col-md3">
+                                <div class="block-item module-group-check">
+                                    <div class="layui-form-item">
+                                        <div class="layui-block">
+                                            <input type="checkbox" name="moduleGroup01[0]" title="重入网情况" lay-skin="primary">
+                                        </div>
+                                        <div class="layui-block">
+                                            <input type="checkbox" name="moduleGroup01[1]" title="异网率情况" lay-skin="primary">
+                                        </div>
+                                        <div class="layui-block">
+                                            <input type="checkbox" name="moduleGroup01[2]" title="其他" lay-skin="primary">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="layui-col-lg2 layui-col-md3">
+                                <div class="block-item module-group-check">
+                                    <div class="layui-form-item">
+                                        <div class="layui-block">
+                                            <input type="checkbox" name="moduleGroup02[0]" title="重入网情况" lay-skin="primary">
+                                        </div>
+                                        <div class="layui-block">
+                                            <input type="checkbox" name="moduleGroup02[1]" title="异网率情况" lay-skin="primary">
+                                        </div>
+                                        <div class="layui-block">
+                                            <input type="checkbox" name="moduleGroup02[2]" title="其他" lay-skin="primary">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="layui-col-lg2 layui-col-md3">
+                                <div class="block-item module-group-check">
+                                    <div class="layui-form-item">
+                                        <div class="layui-block">
+                                            <input type="checkbox" name="moduleGroup03[0]" title="重入网情况" lay-skin="primary">
+                                        </div>
+                                        <div class="layui-block">
+                                            <input type="checkbox" name="moduleGroup03[1]" title="异网率情况" lay-skin="primary">
+                                        </div>
+                                        <div class="layui-block">
+                                            <input type="checkbox" name="moduleGroup03[2]" title="其他" lay-skin="primary">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="layui-col-lg2 layui-col-md3">
+                                <div class="block-item module-group-check">
+                                    <div class="layui-form-item">
+                                        <div class="layui-block">
+                                            <input type="checkbox" name="moduleGroup04[0]" title="重入网情况" lay-skin="primary">
+                                        </div>
+                                        <div class="layui-block">
+                                            <input type="checkbox" name="moduleGroup04[1]" title="异网率情况" lay-skin="primary">
+                                        </div>
+                                        <div class="layui-block">
+                                            <input type="checkbox" name="moduleGroup04[2]" title="其他" lay-skin="primary">
+                                        </div>
+                                        <div class="layui-block">
+                                            <input type="checkbox" name="moduleGroup04[3]" title="其他" lay-skin="primary">
+                                        </div>
+                                        <div class="layui-block">
+                                            <input type="checkbox" name="moduleGroup04[4]" title="其他" lay-skin="primary">
+                                        </div>
+                                        <div class="layui-block">
+                                            <input type="checkbox" name="moduleGroup04[5]" title="其他" lay-skin="primary">
+                                        </div>
+                                        <div class="layui-block">
+                                            <input type="checkbox" name="moduleGroup04[6]" title="其他" lay-skin="primary">
+                                        </div>
+                                        <div class="layui-block">
+                                            <input type="checkbox" name="moduleGroup04[7]" title="其他" lay-skin="primary">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="layui-col-lg2 layui-col-md3">
+                                <div class="block-item module-group-check">
+                                    <div class="layui-form-item">
+                                        <div class="layui-block">
+                                            <input type="checkbox" name="moduleGroup05[0]" title="重入网情况" lay-skin="primary">
+                                        </div>
+                                        <div class="layui-block">
+                                            <input type="checkbox" name="moduleGroup05[1]" title="异网率情况" lay-skin="primary">
+                                        </div>
+                                        <div class="layui-block">
+                                            <input type="checkbox" name="moduleGroup05[2]" title="其他" lay-skin="primary">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="layui-col-lg2 layui-col-md3">
+                                <div class="block-item module-group-check">
+                                    <div class="layui-form-item">
+                                        <div class="layui-block">
+                                            <input type="checkbox" name="moduleGroup06[0]" title="重入网情况" lay-skin="primary">
+                                        </div>
+                                        <div class="layui-block">
+                                            <input type="checkbox" name="moduleGroup06[1]" title="异网率情况" lay-skin="primary">
+                                        </div>
+                                        <div class="layui-block">
+                                            <input type="checkbox" name="moduleGroup06[2]" title="其他" lay-skin="primary">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="layui-col-lg2 layui-col-md3">
+                                <div class="block-item module-group-check">
+                                    <div class="layui-form-item">
+                                        <div class="layui-block">
+                                            <input type="checkbox" name="moduleGroup07[0]" title="重入网情况" lay-skin="primary">
+                                        </div>
+                                        <div class="layui-block">
+                                            <input type="checkbox" name="moduleGroup07[1]" title="异网率情况" lay-skin="primary">
+                                        </div>
+                                        <div class="layui-block">
+                                            <input type="checkbox" name="moduleGroup07[2]" title="其他" lay-skin="primary">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="layui-col-lg2 layui-col-md3">
+                                <div class="block-item module-group-check">
+                                    <div class="layui-form-item">
+                                        <div class="layui-block">
+                                            <input type="checkbox" name="moduleGroup08[0]" title="重入网情况" lay-skin="primary">
+                                        </div>
+                                        <div class="layui-block">
+                                            <input type="checkbox" name="moduleGroup08[1]" title="异网率情况" lay-skin="primary">
+                                        </div>
+                                        <div class="layui-block">
+                                            <input type="checkbox" name="moduleGroup08[2]" title="其他" lay-skin="primary">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="layui-col-lg2 layui-col-md3">
+                                <div class="block-item module-group-check">
+                                    <div class="layui-form-item">
+                                        <div class="layui-block">
+                                            <input type="checkbox" name="moduleGroup09[0]" title="重入网情况" lay-skin="primary">
+                                        </div>
+                                        <div class="layui-block">
+                                            <input type="checkbox" name="moduleGroup09[1]" title="异网率情况" lay-skin="primary">
+                                        </div>
+                                        <div class="layui-block">
+                                            <input type="checkbox" name="moduleGroup09[2]" title="其他" lay-skin="primary">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="layui-col-lg2 layui-col-md3">
+                                <div class="block-item module-group-check">
+                                    <div class="layui-form-item">
+                                        <div class="layui-block">
+                                            <input type="checkbox" name="moduleGroup10[0]" title="重入网情况" lay-skin="primary">
+                                        </div>
+                                        <div class="layui-block">
+                                            <input type="checkbox" name="moduleGroup10[1]" title="异网率情况" lay-skin="primary">
+                                        </div>
+                                        <div class="layui-block">
+                                            <input type="checkbox" name="moduleGroup10[2]" title="其他" lay-skin="primary">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="layui-col-lg2 layui-col-md3">
+                                <div class="block-item module-group-check">
+                                    <div class="layui-form-item">
+                                        <div class="layui-block">
+                                            <input type="checkbox" name="moduleGroup11[0]" title="重入网情况" lay-skin="primary">
+                                        </div>
+                                        <div class="layui-block">
+                                            <input type="checkbox" name="moduleGroup11[1]" title="异网率情况" lay-skin="primary">
+                                        </div>
+                                        <div class="layui-block">
+                                            <input type="checkbox" name="moduleGroup11[2]" title="其他" lay-skin="primary">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="layui-col-lg2 layui-col-md3">
+                                <div class="block-item module-group-check">
+                                    <div class="layui-form-item">
+                                        <div class="layui-block">
+                                            <input type="checkbox" name="moduleGroup12[0]" title="重入网情况" lay-skin="primary">
+                                        </div>
+                                        <div class="layui-block">
+                                            <input type="checkbox" name="moduleGroup12[1]" title="异网率情况" lay-skin="primary">
+                                        </div>
+                                        <div class="layui-block">
+                                            <input type="checkbox" name="moduleGroup12[2]" title="其他" lay-skin="primary">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="layui-row">
+            <div class="layui-col-xs12">
+                <div class="layui-card">
+                    <div class="layui-card-header">
+                        <i>层级选择</i>
+                    </div>
+                    <div class="layui-card-body layui-form" lay-filter="tierCheck">
+                        <div class="layui-row layui-col-space10" id="tierList">
+                            <!-- <div class="layui-col-lg2 layui-col-md3">
+                                <div class="block-item module-group-check">
+                                    <div class="module-title">
+                                        <h4 class="icon01"><i>1</i><span>第一层</span></h4>
+                                    </div>
+                                    <div class="layui-form-item form-wrap">
+                                        <div class="layui-block">
+                                            <input type="checkbox" name="tierGroup01[0]"  title="重入网情况" lay-skin="primary">
+                                        </div>
+                                        <div class="layui-block">
+                                            <input type="checkbox" name="tierGroup01[1]"  title="异网率情况" lay-skin="primary">
+                                        </div>
+                                        <div class="layui-block">
+                                            <input type="checkbox" name="tierGroup01[2]"  title="其他" lay-skin="primary">
+                                        </div>
+                                        <div class="layui-block">
+                                            <input type="checkbox" name="tierGroup01[3]"  title="其他" lay-skin="primary">
+                                        </div>
+                                        <div class="layui-block">
+                                            <input type="checkbox" name="tierGroup01[4]"  title="其他" lay-skin="primary">
+                                        </div>
+                                        <div class="layui-block">
+                                            <input type="checkbox" name="tierGroup01[5]"  title="其他" lay-skin="primary">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="layui-col-lg2 layui-col-md3">
+                                <div class="block-item module-group-check">
+                                    <div class="module-title">
+                                        <h4 class="icon02"><i>2</i><span>第二层</span></h4>
+                                    </div>
+                                    <div class="layui-form-item">
+                                        <div class="layui-block">
+                                            <input type="checkbox" name="tierGroup02[0]"  title="重入网情况" lay-skin="primary">
+                                        </div>
+                                        <div class="layui-block">
+                                            <input type="checkbox" name="tierGroup02[1]"  title="异网率情况" lay-skin="primary">
+                                        </div>
+                                        <div class="layui-block">
+                                            <input type="checkbox" name="tierGroup02[2]"  title="其他" lay-skin="primary">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="layui-col-lg2 layui-col-md3">
+                                <div class="block-item module-group-check">
+                                    <div class="module-title">
+                                        <h4 class="icon03"><i>3</i><span>第三层</span></h4>
+                                    </div>
+                                    <div class="layui-form-item">
+                                        <div class="layui-block">
+                                            <input type="checkbox" name="tierGroup03[0]"  title="重入网情况" lay-skin="primary">
+                                        </div>
+                                        <div class="layui-block">
+                                            <input type="checkbox" name="tierGroup03[1]"  title="异网率情况" lay-skin="primary">
+                                        </div>
+                                        <div class="layui-block">
+                                            <input type="checkbox" name="tierGroup03[2]"  title="其他" lay-skin="primary">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="layui-col-lg2 layui-col-md3">
+                                <div class="block-item module-group-check">
+                                    <div class="module-title">
+                                        <h4 class="icon04"><i>4</i><span>第四层</span></h4>
+                                    </div>
+                                    <div class="layui-form-item">
+                                        <div class="layui-block">
+                                            <input type="checkbox" name="tierGroup04[0]"  title="重入网情况" lay-skin="primary">
+                                        </div>
+                                        <div class="layui-block">
+                                            <input type="checkbox" name="tierGroup04[1]"  title="异网率情况" lay-skin="primary">
+                                        </div>
+                                        <div class="layui-block">
+                                            <input type="checkbox" name="tierGroup04[2]"  title="其他" lay-skin="primary">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="layui-col-lg2 layui-col-md3">
+                                <div class="block-item module-group-check">
+                                    <div class="module-title">
+                                        <h4 class="icon05"><i>5</i><span>第五层</span></h4>
+                                    </div>
+                                    <div class="layui-form-item">
+                                        <div class="layui-block">
+                                            <input type="checkbox" name="tierGroup05[0]"  title="重入网情况" lay-skin="primary">
+                                        </div>
+                                        <div class="layui-block">
+                                            <input type="checkbox" name="tierGroup05[1]"  title="异网率情况" lay-skin="primary">
+                                        </div>
+                                        <div class="layui-block">
+                                            <input type="checkbox" name="tierGroup05[2]"  title="其他" lay-skin="primary">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div> -->
+                            <div class="layui-col-lg2 layui-col-md3">
+                                <div class="block-item module-group-check check-more">
+                                    <i class="iconfont icon-plus"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="layui-row" style="margin-top: 10px;">
+                            <div class="layui-col-xs12">
+                                <button type="button" id="preview" class="layui-btn layui-btn-normal">结构预览</button>
+                                <button type="button" class="layui-btn layui-btn-normal">数据生成</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="../../lib/jquery/3.4.1/jquery.min.js"></script>
+    <script src="../../lib/layui/layui.js"></script>
+    <script src="../../lib/sortable/Sortable.min.js"></script>
+    <script src="./data.js"></script>
+    <script src="./base.js"></script>
+</body>
+</html>

@@ -1,0 +1,146 @@
+.nav-list{
+    width 220px
+    overflow-x hidden
+    .layui-side-scroll{
+        width 240px
+    }
+    .layui-nav-tree{
+        width 220px
+    }
+    .layui-nav{
+        background none
+        margin-top 130px
+        .layui-nav-more{
+            border none
+            width 16px;
+            height 16px;
+            background url(../images/nav-arrow.png) no-repeat center center;
+            background-size cover
+            margin-top -6px;
+        }
+    }
+    .layui-nav-itemed{
+        &>a{
+            .layui-nav-more{
+                transform:rotate(-180deg);
+            }
+        }
+    }
+    .layui-nav-tree{
+        .layui-nav-bar{
+            background #0e90fe
+            width 3px
+        }
+        .layui-this{
+            &>a,
+            &>a:hover{
+                background-color: #222932;
+            }
+        }
+        .layui-nav-child{
+            dd.layui-this,
+            dd.layui-this a{
+                background-color: #222932;
+            }
+        }
+    } 
+}
+.layui-form-select{
+    dl{
+        dd{
+            &.layui-this{
+                background-color $theme-color
+            }
+        }
+    }
+}
+
+.layui-input-date{
+    background-image url(../images/icon-calendar.png)
+    background-repeat no-repeat
+    background-position right center
+    background-size auto 60% 
+}
+.layui-laydate-header{
+    i:hover
+    span:hover{
+        color $theme-color!important
+    }
+}
+.layui-laydate{
+    li.layui-this
+    td.layui-this{
+        background-color $theme-color!important
+    }
+}
+.layui-laydate-footer{
+    span:hover{
+        color $theme-color!important
+    }
+}
+
+.layui-form-radio>i:hover
+.layui-form-radioed>i{
+    color $theme-color
+}
+.layui-btn-primary:hover{
+    border-color $theme-color
+}
+.layui-btn-group{
+    .layui-btn-primary{
+        &:hover{
+            color #0064ff
+        }
+        &.active{
+            background-color $theme-color
+            border-color $theme-color
+            color #fff
+        }
+    }
+}
+
+.layui-laypage{
+    a{
+        &:hover{
+            color $theme-color
+        }
+    }
+    .layui-laypage-curr{
+        .layui-laypage-em{
+            background-color $theme-color
+        }
+    }
+}
+
+.layui-btn-normal{
+    background-color $theme-color
+}
+.layui-form-checked[lay-skin=primary]{
+    i{
+        border-color $theme-color!important
+        background-color $theme-color
+    }
+}
+.layui-form-checkbox[lay-skin=primary]:hover{
+    i{
+        border-color $theme-color
+    }
+}
+
+.layui-label{
+    b{
+        vertical-align: middle
+    }
+    i{
+        vertical-align: middle
+        display: inline-block
+        margin-left: 5px
+        cursor pointer
+    }
+}
+
+.layui-card{
+    .layui-card-header{
+        font-size: 16px
+    }
+}

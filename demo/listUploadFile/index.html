@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>清单发布</title>
+    <link rel="stylesheet" href="../../lib/layui/css/layui.css">
+    <link rel="stylesheet" href="../../lib/zTree/css/metroStyle/metroStyle.css">
+    <link rel="stylesheet" href="../../css/style.css">
+    <style>
+        body{
+            padding: 10px;
+        }
+        .list-form-wrap{
+            width: 1000px;
+            margin: 0 auto;
+        }
+        .btn-approver{
+            position: absolute;
+            font-size: 30px;
+            top: 50%;
+            right: -25px;
+            margin-top: -12px;
+            cursor: pointer;
+            display: none;
+        }
+        .publish-help{
+            font-size: 18px;
+            vertical-align: bottom;
+            position: relative;
+        }
+        .publish-help p{
+            position: absolute;
+            top: 18px;
+            left: 24px;
+            z-index: 9;
+            padding: 10px;
+            border: 4px;
+            display: none;
+            background: #fff;
+            line-height: 24px;
+            box-shadow: 0 0 5px rgba(0, 0, 0, .2);
+            width: 500px;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+        .publish-help:hover p{
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <div class="lay-fluid layui-col-space10">
+        <div class="layui-row">
+            <div class="layui-col-xs12">
+                <div class="layui-card">
+                    <div class="layui-card-header">
+                        <i>清单发布</i>
+                        <i class="iconfont icon-helpicon publish-help color-theme">
+                            <p> 1.拆分文件必须是csv格式<br>2.SQL中可包含变量${day-n}/${month-n}, n为正整数, 变量只能在查询条件中使用<br></p>
+                        </i>
+                    </div>
+                    <div class="layui-card-body">
+                        <div class="list-form-tab text-center" style="margin-bottom: 10px;">
+                            <div class="layui-btn-group">
+                                <button style="border-right:none;" type="button" class="layui-btn layui-btn-primary active">文件清单</button>
+                                <button type="button" class="layui-btn layui-btn-primary">数据清单</button>
+                            </div>
+                        </div>
+                        <div class="list-form-wrap">
+                            <div class="layui-form list-upload-form">
+                                <div class="layui-form-item" style="margin-bottom:0">
+                                    <div class="layui-inline">
+                                        <label class="layui-form-label">清单名称</label>
+                                        <div class="layui-input-inline">
+                                            <input autocomplete="off" type="text" name="name" class="layui-input" placeholder="请输入">
+                                        </div>
+                                    </div>
+                                    <div class="layui-inline">
+                                        <label class="layui-form-label">归属账期</label>
+                                        <div class="layui-input-inline">
+                                            <input type="text" name="" id="payDate" placeholder="归属账期" class="layui-input layui-input-date">
+                                        </div>
+                                    </div>
+                                    <div class="layui-inline">
+                                        <label class="layui-form-label">拆分文件</label>
+                                        <div class="layui-input-inline">
+                                            <button type="button" class="layui-btn form-button" id="test1">
+                                                <i class="iconfont icon-upload"></i> <span>上传拆分文件</span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="layui-inline">
+                                        <label class="layui-form-label">说明文件</label>
+                                        <div class="layui-input-inline">
+                                            <button type="button" class="layui-btn form-button" id="test2">
+                                                <i class="iconfont icon-file"></i> <span>上传说明文件</span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="layui-inline">
+                                        <label class="layui-form-label">是否审批</label>
+                                        <div class="layui-input-inline">
+                                            <select name="ischeck" id="listStatus">
+                                                <option value="">-请选择-</option>
+                                                <option value="bbb">是</option>
+                                                <option value="ccc">否</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="layui-inline">
+                                        <label class="layui-form-label">失效时间</label>
+                                        <div class="layui-input-inline">
+                                            <input type="text" name="" id="outTimeDate" placeholder="发布起始日期" class="layui-input layui-input-date">
+                                        </div>
+                                    </div>
+                                    <div class="layui-inline layui-col-xs12">
+                                        <label class="layui-form-label">备注</label>
+                                        <div class="layui-input-block">
+                                            <textarea style="width:94.2%" placeholder="请输入内容" class="layui-textarea"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="layui-form list-upload-form" style="display:none">
+                                <div class="layui-form-item" style="margin-bottom:0">
+                                    <div class="layui-inline">
+                                        <label class="layui-form-label">清单名称</label>
+                                        <div class="layui-input-inline">
+                                            <input autocomplete="off" type="text" name="name" class="layui-input" placeholder="请输入">
+                                        </div>
+                                    </div>
+                                    <div class="layui-inline">
+                                        <label class="layui-form-label">归属账期</label>
+                                        <div class="layui-input-inline">
+                                            <input type="text" name="" id="payDate2" placeholder="归属账期" class="layui-input layui-input-date">
+                                        </div>
+                                    </div>
+                                    <div class="layui-inline">
+                                        <label class="layui-form-label">周期</label>
+                                        <div class="layui-input-inline">
+                                            <select name="cycle" id="listStatus">
+                                                <option value="">-请选择-</option>
+                                                <option value="bbb">每天</option>
+                                                <option value="ccc">每月</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="layui-form-item" style="margin-bottom:0">
+                                    <div class="layui-inline layui-col-xs12">
+                                        <label class="layui-form-label">拆分SQL</label>
+                                        <div class="layui-input-block">
+                                            <textarea style="width:94.2%" placeholder="请输入sql" class="layui-textarea layui-textarea-inline"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="layui-form-item" style="margin-bottom:0">
+                                    <div class="layui-inline">
+                                        <label class="layui-form-label">说明文件</label>
+                                        <div class="layui-input-inline">
+                                            <button type="button" class="layui-btn form-button" id="test2">
+                                                <i class="iconfont icon-file"></i> <span>上传说明文件</span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="layui-inline" style="position: relative;">
+                                        <label class="layui-form-label">是否审批</label>
+                                        <div class="layui-input-inline">
+                                            <select name="ischeck" id="listStatus" lay-filter="approver">
+                                                <option value="">-请选择-</option>
+                                                <option value="1">是</option>
+                                                <option value="0">否</option>
+                                            </select>
+                                        </div>
+                                        <i id="approverSelect" class="iconfont icon-person-circle btn-approver color-theme"></i>
+                                    </div>
+                                    <div class="layui-inline">
+                                        <label class="layui-form-label">失效时间</label>
+                                        <div class="layui-input-inline">
+                                            <input type="text" name="" id="outTimeDate2" placeholder="发布起始日期" class="layui-input layui-input-date">
+                                        </div>
+                                    </div>
+                                    <div class="layui-inline layui-col-xs12">
+                                        <label class="layui-form-label">备注</label>
+                                        <div class="layui-input-block">
+                                            <textarea style="width:94.2%" placeholder="请输入内容" class="layui-textarea"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="layui-row">
+            <div class="layui-col-xs12">
+                <div class="layui-card">
+                    <div class="layui-card-header">
+                        <i>拆分设置</i>
+                    </div>
+                    <div class="layui-card-body">
+                        <div class="layui-row">
+                            <div class="layui-col-xs12">
+                                <div class="layui-form">
+                                    <div class="layui-form-item" style="margin-bottom:0">
+                                        <div class="layui-inline">
+                                            <label class="layui-form-label">是否拆分</label>
+                                            <div class="layui-input-inline">
+                                                <select name="issplit" id="">
+                                                    <option value="">-请选择-</option>
+                                                    <option value="bbb">是</option>
+                                                    <option value="ccc">否</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="layui-inline">
+                                            <label class="layui-form-label">拆分方式</label>
+                                            <div class="layui-input-inline">
+                                                <select name="splitway" id="" lay-search="">
+                                                    <option value="">直接选择或搜索选择</option>
+                                                    <option value="bbb">用户ID</option>
+                                                    <option value="ccc">流量使用三月均值</option>
+                                                    <option value="ddd">套餐产品</option>
+                                                    <option value="eee">用户类型</option>
+                                                    <option value="fff">终端型号</option>
+                                                    <option value="rrr">包区</option>
+                                                    <option value="ttt">归属单元名称</option>
+                                                    <option value="yyy">地市</option>
+                                                    <option value="uuu">终端分类</option>
+                                                    <option value="iii">终端品牌</option>
+                                                    <option value="ooo">套餐饱和度</option>
+                                                    <option value="ppp">合约名称</option>
+                                                    <option value="kkk">预留3</option>
+                                                    <option value="lll">三无标识</option>
+                                                    <option value="ggg">预留2</option>
+                                                    <option value="mmm">极地标识</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="layui-inline">
+                                            <label class="layui-form-label">拆分模板</label>
+                                            <div class="layui-input-inline">
+                                                <select name="splitmodule" id="">
+                                                    <option value="">-请选择-</option>
+                                                    <option value="bbb">地市模板</option>
+                                                    <option value="ccc">不拆分模板</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="layui-inline">
+                                            <label class="layui-form-label">保存模版</label>
+                                            <div class="layui-input-inline">
+                                                <input type="checkbox" name="" lay-skin="primary" title="将以下分配方式保存为模版">
+                                            </div>
+                                        </div>
+                                        <div class="layui-inline">
+                                            <label class="layui-form-label">模板名称</label>
+                                            <div class="layui-input-inline">
+                                                <input autocomplete="off" type="text" name="name" class="layui-input" placeholder="请输入">
+                                            </div>
+                                        </div>
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <hr class="layui-bg-gray">
+                        <div class="layui-row layui-col-space10" style="margin:0 40px;">
+                            <div class="layui-col-xs6">
+                                <h3>员工列表</h3>
+                                <div class="layui-form-item" style="margin-bottom:0">
+                                        <input autocomplete="off" type="text" name="name" class="layui-input" placeholder="请输入关键字">
+                                    
+                                </div>
+                                <div class="staff-list-wrap">
+                                    <div class="staff-list-inner">
+                                        <ul class="ztree staff-list-tree" id="staffTree"></ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="layui-col-xs6">
+                                <h3>分配员工</h3>
+                                <table class="layui-hide" id="searchResult"></table>
+                            </div>
+                        </div>
+                        <div class="text-center layui-clear">
+                            <button type="button" lay-submit class="layui-btn layui-btn-normal">保存</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="../../lib/jquery/3.4.1/jquery.min.js"></script>
+    <script src="../../lib/layui/layui.js"></script>
+    <script src="../../lib/zTree/js/jquery.ztree.all.min.js"></script>
+    <script src="./data.js"></script>
+    <script src="./base.js"></script>
+</body>
+</html>

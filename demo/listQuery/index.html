@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>清单查询</title>
+    <link rel="stylesheet" href="../../lib/layui/css/layui.css">
+    <link rel="stylesheet" href="../../lib/zTree/css/metroStyle/metroStyle.css">
+    <link rel="stylesheet" href="../../css/style.css">
+    <style>
+        body{
+            padding: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="lay-fluid layui-col-space10">
+        <div class="layui-row">
+            <div class="layui-col-xs12">
+                <div class="layui-card">
+                    <div class="layui-card-header">
+                        <i>清单查询</i>
+                    </div>
+                    <div class="layui-card-body">
+                        <form id="searchForm" class="layui-form" lay-filter="form">
+                            <div class="layui-form-item" style="margin-bottom:0">
+                                <div class="layui-inline">
+                                    <label class="layui-form-label">清单名称</label>
+                                    <div class="layui-input-inline">
+                                        <input type="text" name="name" lay-verify="required|name" class="layui-input" placeholder="请输入关键字">
+                                    </div>
+                                </div>
+                                <div class="layui-inline">
+                                    <label class="layui-form-label">清单状态</label>
+                                    <div class="layui-input-inline">
+                                        <select name="status" id="listStatus">
+                                            <option value="aaa" selected>-请选择-</option>
+                                            <option value="bbb">成功</option>
+                                            <option value="ccc">失败</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="layui-inline">
+                                    <label class="layui-form-label">起始日期</label>
+                                    <div class="layui-input-inline">
+                                        <input type="text" name="dateStart" id="dateStart" placeholder="发布起始日期" class="layui-input layui-input-date">
+                                    </div>
+                                </div>
+                                <div class="layui-inline">
+                                    <label class="layui-form-label">截止日期</label>
+                                    <div class="layui-input-inline">
+                                        <input type="text" name="dateEnd" id="dateEnd" placeholder="发布截止日期" class="layui-input layui-input-date">
+                                    </div>
+                                </div>
+                                <div class="layui-inline">
+                                    <label class="layui-form-label">归属账期</label>
+                                    <div class="layui-input-inline">
+                                        <input autocomplete="off" type="text" name="dateCur" id="dateCur" placeholder="归属账期" class="layui-input layui-input-date">
+                                    </div>
+                                </div>
+                                <div class="layui-inline">
+                                    <label class="layui-form-label">查询类别</label>
+                                    <div class="layui-input-block">
+                                        <input type="radio" name="searchType" value="2" title="所有" checked="">
+                                        <input type="radio" name="searchType" value="1" title="我发布的">
+                                        <input type="radio" name="searchType" value="0" title="我审核的">
+                                    </div>
+                                </div>
+                                <div class="layui-input-block">
+                                    <button type="button" style="display:none" id="searchSubmit" lay-filter="formDemo" lay-submit class="layui-btn layui-btn-normal">查询</button>
+                                    <button type="button" id="reset" class="layui-btn layui-btn-primary">重置</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="layui-row">
+            <div class="layui-col-xs12">
+                <div class="layui-card">
+                    <div class="layui-card-header">
+                        <i>查询结果</i>
+                    </div>
+                    <div class="layui-card-body">
+                        <table class="layui-hide" id="searchResult"></table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="../../lib/jquery/3.4.1/jquery.min.js"></script>
+    <script src="../../lib/layui/layui.js"></script>
+    <script src="../../lib/zTree/js/jquery.ztree.all.min.js"></script>
+    <script src="./data.js"></script>
+    <script src="./base.js"></script>
+</body>
+</html>

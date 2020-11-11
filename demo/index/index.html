@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>数家首页</title>
+    <link rel="stylesheet" href="../../lib/layui/css/layui.css">
+    <link rel="stylesheet" href="../../css/style.css">
+    <style>
+        html,body{
+            height:100%;
+            min-width: 1280px;
+        }
+    </style>
+</head>
+<body class=""><!-- nav-push -->
+    <div class="left-section">
+        <div class="top-logo"><img class="logo-icon" src="../../images/logo-ifudata.png" alt=""><img class="logo-icon-small" src="../../images/logo-ifudata-small.png" alt=""></div>
+        <div class="nav-search">
+            <span><input type="text" placeholder="请输入关键字"><i class="iconfont icon-search"></i></span>
+        </div>
+        <div class="nav-title"><span>站内导航</span></div>
+        <div class="layui-side nav-list">
+            <div class="layui-side-scroll">
+                <ul id="navList" class="layui-nav layui-nav-tree layui-nav-side">
+                    <!-- <li class="layui-nav-item">
+                        <a href="javascript:void(0);"><i class="iconfont icon-28 nav-icon"></i>默认展开</a>
+                        <dl class="layui-nav-child">
+                            <dd><a href="javascript:void(0);">选项一</a></dd>
+                            <dd><a href="javascript:void(0);">选项二</a></dd>
+                            <dd><a href="javascript:void(0);">选项三</a></dd>
+                            <dd><a href="javascript:void(0);">跳转项</a></dd>
+                        </dl>
+                    </li>
+                    <li class="layui-nav-item">
+                        <a href="javascript:void(0);"><i class="iconfont icon-28 nav-icon"></i>解决方案</a>
+                        <dl class="layui-nav-child">
+                            <dd>
+                                <a href="javascript:void(0);">移动模块</a>
+                                <dl class="layui-nav-child">
+                                    <dd><a href="javascript:void(0);">选项一</a></dd>
+                                    <dd><a href="javascript:void(0);">选项二</a></dd>
+                                    <dd><a href="javascript:void(0);">选项三</a></dd>
+                                    <dd><a href="javascript:void(0);">跳转项</a></dd>
+                                </dl>
+                            </dd>
+                            <dd><a href="javascript:void(0);">后台模版</a></dd>
+                            <dd><a href="javascript:void(0);">电商平台</a></dd>
+                        </dl>
+                    </li>
+                    <li class="layui-nav-item"><a href="javascript:void(0);"><i class="iconfont icon-28 nav-icon"></i>云市场</a></li>
+                    <li class="layui-nav-item"><a href="javascript:void(0);"><i class="iconfont icon-28 nav-icon"></i>社区</a></li> -->
+                </ul>
+            </div>
+        </div>
+        
+    </div>
+    <div class="right-section">
+        <div class="top-info">
+            <i class="iconfont icon-pull-left" id="navViewChange"></i>
+            <div class="info-list">
+                <span><i class="iconfont icon-helpicon"></i><b>帮助</b></span>
+                <span><i class="iconfont icon-notice"></i><b>公告</b></span>
+                <span>
+                    <b>admin</b><i class="iconfont icon-fillarrow user-arrow"></i>
+                    <dl>
+                        <dd>用户信息</dd>
+                        <dd>修改密码</dd>
+                    </dl>
+                </span>
+                <span><i class="iconfont icon-exit"></i><b>退出</b></span>
+            </div>
+        </div>
+        <div class="nav-tab">
+            <!-- <div class="iconfont icon-prev tab-control tab-prev"></div>
+            <div class="iconfont icon-prev tab-control tab-next"></div> -->
+            <div class="iconfont icon-more tab-control tab-operate">
+                <dl>
+                    <dd>关闭当前标签页</dd>
+                    <dd>关闭其他标签页</dd>
+                    <dd>关闭全部标签页</dd>
+                </dl>
+            </div>
+            <div class="nav-tab-list">
+                <ul id="navTabList" class="">
+                    <li class="home active"><small class="iconfont icon-home"></small></li>
+                </ul>
+            </div>
+        </div>
+        <div class="iframe-section" id="iframeList">
+            <iframe src="" frameborder="0"></iframe>
+        </div>
+    </div>
+    <script src="../../lib/jquery/3.4.1/jquery.min.js"></script>
+    <script src="../../lib/layui/layui.js"></script>
+    <script src="../../script/plugins.js"></script>
+    <script src="./data.js"></script>
+    <script src="./base.js"></script>
+</body>
+</html>
